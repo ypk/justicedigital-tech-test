@@ -1,18 +1,19 @@
-# Password Validation – Requirements
+# Basic password validation
 
 ## Goal
-Implement a function or method that checks whether a given password is valid according to specific rules.
+Design and implement some code that validates a password.
 
-## Validation Criteria
-A password is considered valid if it meets **all** of the following requirements:
-- It has more than 8 characters.
-- It contains at least one uppercase letter.
-- It contains at least one lowercase letter.
-- It contains at least one number.
-- It contains at least one underscore (`_`).
-- **No more than 2 of the above requirements may fail.** If 3 or more fail, the password is invalid.
+The password will be provided by the user (as an argument of the method) and should return if the password is valid or not.
 
-## Technical Requirements
-- The password will be provided as an argument to the function or method.
-- The function should return a boolean or a simple result indicating whether the password is valid.
-- The function does **not** need to provide reasons for invalidity—only a valid/invalid result is required.
+A valid password should meet the following criteria:
+
+- Have more than 8 characters
+- Contains a capital letter
+- Contains a lowercase
+- Contains a number
+- Contains an underscore
+- If 3 or more criteria fail, the password is invalid.
+
+## Technical requirements:
+* We want a method that answers if the password is valid or not.
+* We need to know the reason why the password is invalid
