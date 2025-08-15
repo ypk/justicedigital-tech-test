@@ -3,9 +3,9 @@ export enum PasswordValidationResult {
   Invalid = "Invalid"
 }
 
-type ValidationResult = { 
-  validity: PasswordValidationResult; 
-  message: string[]; 
+type ValidationResult = {
+  validity: PasswordValidationResult;
+  message: string[];
 };
 
 export class PasswordManager {

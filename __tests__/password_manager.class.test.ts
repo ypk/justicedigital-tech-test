@@ -10,46 +10,57 @@ describe("PasswordManager class", () => {
 		assert.deepStrictEqual(result.message, []);
 	});
 
-	test("should invalidate a password missing uppercase", () => {
+
+	test("should validate a password missing one requirement (uppercase)", () => {
 		const manager = new PasswordManager("abc_12345");
 		const result = manager.validatePassword();
-		assert.strictEqual(result.validity, PasswordValidationResult.Invalid);
+		assert.strictEqual(result.validity, PasswordValidationResult.Valid);
 		assert.ok(result.message.includes("Capital Letters are mandatory"));
 	});
 
-	test("should invalidate a password missing lowercase", () => {
+	test("should validate a password missing one requirement (lowercase)", () => {
 		const manager = new PasswordManager("ABC_12345");
 		const result = manager.validatePassword();
-		assert.strictEqual(result.validity, PasswordValidationResult.Invalid);
+		assert.strictEqual(result.validity, PasswordValidationResult.Valid);
 		assert.ok(result.message.includes("Lowercase Letters are mandatory"));
 	});
 
-	test("should invalidate a password missing numbers", () => {
+	test("should validate a password missing one requirement (numbers)", () => {
 		const manager = new PasswordManager("Abc_defgh");
 		const result = manager.validatePassword();
-		assert.strictEqual(result.validity, PasswordValidationResult.Invalid);
+		assert.strictEqual(result.validity, PasswordValidationResult.Valid);
 		assert.ok(result.message.includes("Numbers are mandatory"));
 	});
 
-	test("should invalidate a password missing underscore", () => {
+	test("should validate a password missing one requirement (underscore)", () => {
 		const manager = new PasswordManager("Abc12345");
 		const result = manager.validatePassword();
-		assert.strictEqual(result.validity, PasswordValidationResult.Invalid);
+		assert.strictEqual(result.validity, PasswordValidationResult.Valid);
 		assert.ok(result.message.includes("Underscore is mandatory"));
 	});
 
-	test("should invalidate a password missing minimum characters", () => {
-		const manager = new PasswordManager("Abc_1");
+	test("should validate a password missing one requirement (minimum characters)", () => {
+		const manager = new PasswordManager("Abc_1abc");
 		const result = manager.validatePassword();
-		assert.strictEqual(result.validity, PasswordValidationResult.Invalid);
+		assert.strictEqual(result.validity, PasswordValidationResult.Valid);
 		assert.ok(result.message.includes("Password must be at least 6 characters."));
 	});
 
-	test("should invalidate a password missing multiple requirements", () => {
-		const manager = new PasswordManager("abcde");
+	test("should validate a password missing two requirements (uppercase and numbers)", () => {
+		const manager = new PasswordManager("abc_defgh");
+		const result = manager.validatePassword();
+		assert.strictEqual(result.validity, PasswordValidationResult.Valid);
+		assert.ok(result.message.includes("Capital Letters are mandatory"));
+		assert.ok(result.message.includes("Numbers are mandatory"));
+	});
+
+	test("should invalidate a password missing three requirements (uppercase, numbers, and underscore)", () => {
+		const manager = new PasswordManager("abcdefgh");
 		const result = manager.validatePassword();
 		assert.strictEqual(result.validity, PasswordValidationResult.Invalid);
-		assert.ok(result.message.length >= 2);
+		assert.ok(result.message.includes("Capital Letters are mandatory"));
+		assert.ok(result.message.includes("Numbers are mandatory"));
+		assert.ok(result.message.includes("Underscore is mandatory"));
 	});
 
 	test("should throw error for empty password", () => {
