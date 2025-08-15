@@ -1,5 +1,5 @@
 import readline from "readline";
-import { PasswordManager } from "./password_manager";
+import { PasswordManager } from "./password_manager.class";
 
 const rl = readline.createInterface({
 	input: process.stdin,
