@@ -25,7 +25,11 @@ export class PasswordManager {
   }
 
   #hasMinimumCharacters(): boolean {
-    return this.password.length >= this.minimumPasswordLength;
+    const result = this.password.length >= this.minimumPasswordLength;
+    if (!result) {
+      this.errorMessage.push(`Password must be at least ${this.minimumPasswordLength} characters.`);
+    }
+    return result;
   }
 
   #hasUpperCaseChars(): boolean {

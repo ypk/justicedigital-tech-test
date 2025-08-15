@@ -40,10 +40,10 @@ describe("PasswordManager class", () => {
 	});
 
 	test("should validate a password missing one requirement (minimum characters)", () => {
-		const manager = new PasswordManager("Abc_1abc");
+		const manager = new PasswordManager("Abc_123");
 		const result = manager.validatePassword();
 		assert.strictEqual(result.validity, PasswordValidationResult.Valid);
-		assert.ok(result.message.includes("Password must be at least 6 characters."));
+		assert.ok(result.message.includes("Password must be at least 8 characters."));
 	});
 
 	test("should validate a password missing two requirements (uppercase and numbers)", () => {
