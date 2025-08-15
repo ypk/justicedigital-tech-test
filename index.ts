@@ -1,5 +1,6 @@
 import readline from "readline";
-import { PasswordManager } from "./password_manager.class";
+import { PasswordManager as PasswordManagerClass } from "./password_manager.class";
+import { PasswordManager as PasswordManagerFunction } from "./password_manager.function";
 
 const rl = readline.createInterface({
 	input: process.stdin,
@@ -7,15 +8,21 @@ const rl = readline.createInterface({
 	terminal: true,
 });
 
+const mode = process.argv[2] === "function" ? "function" : "class";
 
 function askPassword() {
 	rl.question("\nEnter password to validate: ", (input) => {
 		try {
-			const manager = new PasswordManager(input);
-			const result = manager.validatePassword();
+			let result;
+			if (mode === "function") {
+				result = PasswordManagerFunction(input);
+			} else {
+				const manager = new PasswordManagerClass(input);
+				result = manager.validatePassword();
+			}
 			console.log(`\nValidation result: ${result.validity}`);
 			if (result.message.length > 0) {
-				console.log("Reasons:");
+				console.log("\nReasons:");
 				for (const msg of result.message) {
 					console.log(`- ${msg}`);
 				}
@@ -27,7 +34,7 @@ function askPassword() {
 	});
 }
 
-console.log(`PasswordManager`);
+console.log(`PasswordManager (${mode} mode)`);
 console.log(`\nPress Ctrl+C to exit.`);
 
 askPassword();
