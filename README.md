@@ -10,6 +10,7 @@ A password is considered valid if it meets **all** of the following requirements
 - It contains at least one lowercase letter.
 - It contains at least one number.
 - It contains at least one underscore (`_`).
+- **No more than 2 of the above requirements may fail.** If 3 or more fail, the password is invalid.
 
 ## Technical Requirements
 - The password will be provided as an argument to the function or method.
